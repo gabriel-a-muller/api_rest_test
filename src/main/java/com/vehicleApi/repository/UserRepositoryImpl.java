@@ -74,7 +74,6 @@ public class UserRepositoryImpl implements UserRepository{
 		em.getTransaction().begin();
 		em.persist(user);
 		em.getTransaction().commit();
-		System.out.println("I am here");
 		return user;
 	}
 	

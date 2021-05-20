@@ -107,7 +107,7 @@ public class Vehicle {
 	public void setRotation_active(boolean rotation_active) {
 		this.rotation_active = rotation_active;
 	}
-
+	
 	public String toString() {
 		String s = "";
 		StringBuilder strBuilder = new StringBuilder(s);

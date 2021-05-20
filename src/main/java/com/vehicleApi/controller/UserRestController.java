@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.vehicleApi.model.ServerResponse;
 import com.vehicleApi.model.User;
-import com.vehicleApi.model.Vehicle;
 import com.vehicleApi.repository.UserRepositoryImpl;
 import com.vehicleApi.repository.VehicleRepositoryImpl;
 
 @RestController
-@RequestMapping("/user")
 public class UserRestController {
 
 	@Autowired
@@ -29,15 +29,14 @@ public class UserRestController {
 	@Autowired
 	UserRepositoryImpl userRepo;
 
-	@RequestMapping(path="/vehicle/{id}")
-	public List<Vehicle> listUserVehicles(@PathVariable int id) {
-		User user = userRepo.getUserById(id);
-		return vehicleRepo.getAll();
-	}
-
 	@GetMapping
 	public List<User> listAllUsers() {
 		return userRepo.getAll();
+	}
+	
+	@RequestMapping(path="/user/{id}", method = RequestMethod.GET)
+	public User getUser(@PathVariable int id, HttpServletResponse response) {
+		return userRepo.getUserById(id);
 	}
 
 	private String formatCpf(String cpf) {
@@ -53,28 +52,32 @@ public class UserRestController {
 
 	@PostMapping
 	public ResponseEntity<?> add(@RequestBody User user, HttpServletResponse response) {
+		
 		//Format CPF string
 		String new_cpf = formatCpf(user.getCpf());
 		if (new_cpf != null) {
 			user.setCpf(new_cpf);
 		} else {
-			user.setResponse_error("This CPF appears to be invalid!");
-			return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
+			ServerResponse serverResponse = new ServerResponse(user, "This CPF appears to be invalid!");
+			return new ResponseEntity<>(serverResponse, HttpStatus.BAD_REQUEST);
 		}
+
 		//CHECK unique CPF
 		if (userRepo.getUserByCpf(user.getCpf()) != null){
-			user.setResponse_error("This cpf is already registred!");
-			return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
+			ServerResponse serverResponse = new ServerResponse(user, "This cpf is already registred!");
+			return new ResponseEntity<>(serverResponse, HttpStatus.BAD_REQUEST);
+
 		//CHECK unique email
 		} else if (userRepo.getUserByEmail(user.getEmail()) != null) {
-			user.setResponse_error("This email is already registred!");
-			return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
+			ServerResponse serverResponse = new ServerResponse(user, "This email is already registred!");
+			return new ResponseEntity<>(serverResponse, HttpStatus.BAD_REQUEST);
 		} else {
-			System.out.println("I am here at the Rest Controller");
 			if (userRepo.saveUser(user) != null) {
-				return new ResponseEntity<>(user, HttpStatus.OK);
+				ServerResponse serverResponse = new ServerResponse(user, "User created successfuly");
+				return new ResponseEntity<>(serverResponse, HttpStatus.OK);
 			} else {
-				return new ResponseEntity<>(user, HttpStatus.INTERNAL_SERVER_ERROR);
+				ServerResponse serverResponse = new ServerResponse(user, "Server Internal Error!");
+				return new ResponseEntity<>(serverResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}
 	}
