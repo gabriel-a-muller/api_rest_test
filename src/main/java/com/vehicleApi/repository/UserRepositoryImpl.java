@@ -1,13 +1,17 @@
 package com.vehicleApi.repository;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
 import com.vehicleApi.model.User;
+import com.vehicleApi.model.Vehicle;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository{
@@ -37,8 +41,40 @@ public class UserRepositoryImpl implements UserRepository{
 	}
 	
 	@Override
+	public User getUserByEmail(String email) {
+		TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
+		query.setParameter("email", email);
+		try {
+			return query.getSingleResult();
+		} catch (NoResultException nre) {
+			return null;
+		}
+	}
+	
+	@Override
+	public User getUserByCpf(String cpf) {
+		TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.cpf = :cpf", User.class);
+		query.setParameter("cpf", cpf);
+		try {
+			return query.getSingleResult();
+		} catch (NoResultException nre) {
+			return null;
+		}
+		
+	}
+	
+	@Override
+	public List<User> getAll() {
+		TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
+		return query.getResultList();
+	}
+	
+	@Override
 	public User saveUser(User user) {
+		em.getTransaction().begin();
 		em.persist(user);
+		em.getTransaction().commit();
+		System.out.println("I am here");
 		return user;
 	}
 	

@@ -41,7 +41,9 @@ public class VehicleRepositoryImpl implements VehicleRepository{
 	
 	@Override
 	public Vehicle saveVehicle(Vehicle vehicle) {
+		em.getTransaction().begin();
 		em.persist(vehicle);
+		em.getTransaction().commit();
 		return vehicle;
 	}
 	

@@ -32,6 +32,10 @@ public class Vehicle {
 	
 	private int price;
 	
+	private String day_rotation;
+	
+	private boolean rotation_active;
+	
 	Vehicle() {
 		
 	}
@@ -40,17 +44,6 @@ public class Vehicle {
 		this.setUser(user);
 	}
 	
-	public String toString() {
-		String s = "";
-		StringBuilder strBuilder = new StringBuilder(s);
-		strBuilder.append("Vehicle: ");
-		strBuilder.append(this.brand + " ");
-		strBuilder.append(this.model + " ");
-		strBuilder.append(this.year + " ");
-		strBuilder.append(this.user.getId());
-		return strBuilder.toString();
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -98,6 +91,32 @@ public class Vehicle {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	
+	public String getDay_rotation() {
+		return day_rotation;
+	}
 
+	public void setDay_rotation(String day_rotation) {
+		this.day_rotation = day_rotation;
+	}
+
+	public boolean isRotation_active() {
+		return rotation_active;
+	}
+
+	public void setRotation_active(boolean rotation_active) {
+		this.rotation_active = rotation_active;
+	}
+
+	public String toString() {
+		String s = "";
+		StringBuilder strBuilder = new StringBuilder(s);
+		strBuilder.append("Vehicle: ");
+		strBuilder.append(this.brand + " ");
+		strBuilder.append(this.model + " ");
+		strBuilder.append(this.year + " ");
+		strBuilder.append(this.user.getId());
+		return strBuilder.toString();
+	}
 	
 }

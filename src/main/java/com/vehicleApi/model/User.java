@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -32,6 +33,9 @@ public class User {
 	private String cpf;
 	
 	private String email;
+	
+	@Transient
+	private String response_error;
 	
 	public User(){
 		
@@ -84,6 +88,13 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
+	public String getResponse_error() {
+		return response_error;
+	}
+
+	public void setResponse_error(String response_error) {
+		this.response_error = response_error;
+	}
 	
 }
