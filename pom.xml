@@ -13,6 +13,12 @@
 		</dependency>
 		
 		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>5.4.2.Final</version>
@@ -23,9 +29,23 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.16</version>
 	  	</dependency>
-
+	  	
+	  	<dependency>
+	        <groupId>com.fasterxml.jackson.core</groupId>
+	        <artifactId>jackson-databind</artifactId>
+        	<version>2.5.3</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>4.3.30.RELEASE</version>
+		</dependency>
 	</dependencies>
 
+	<properties>
+    <tomcat7-version>7.0.93</tomcat7-version>
+	</properties>
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -40,7 +60,6 @@
 						<showWarnings>true</showWarnings>
 					</configuration>
 				</plugin>
-				
 				<plugin>
 					<groupId>org.apache.tomcat.maven</groupId>
 					<artifactId>tomcat7-maven-plugin</artifactId>
@@ -50,6 +69,13 @@
 						<path>/</path>
 						<contextReloadable>true</contextReloadable>
 					</configuration>
+					<dependencies>
+		                <dependency>
+		                    <groupId>org.apache.tomcat.embed</groupId>
+		                    <artifactId>tomcat-embed-core</artifactId>
+		                    <version>${tomcat7-version}</version>
+		                </dependency>
+		            </dependencies>
 				</plugin>
 			</plugins>
 		</pluginManagement>

@@ -1,6 +1,5 @@
 package com.vehicleApi.model;
 
-import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "vehicle")
 public class Vehicle {
@@ -18,6 +19,7 @@ public class Vehicle {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
@@ -30,8 +32,23 @@ public class Vehicle {
 	
 	private int price;
 	
+	Vehicle() {
+		
+	}
+	
 	public Vehicle(User user) {
 		this.setUser(user);
+	}
+	
+	public String toString() {
+		String s = "";
+		StringBuilder strBuilder = new StringBuilder(s);
+		strBuilder.append("Vehicle: ");
+		strBuilder.append(this.brand + " ");
+		strBuilder.append(this.model + " ");
+		strBuilder.append(this.year + " ");
+		strBuilder.append(this.user.getId());
+		return strBuilder.toString();
 	}
 
 	public int getId() {

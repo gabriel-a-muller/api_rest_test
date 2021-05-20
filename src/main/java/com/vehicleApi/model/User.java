@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
 @Table(name = "user")
@@ -19,6 +21,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "user")
 	private Set<Vehicle> vehicles;
 	
@@ -29,6 +32,10 @@ public class User {
 	private String cpf;
 	
 	private String email;
+	
+	public User(){
+		
+	}
 	
 	public Set<Vehicle> getVehicles() {
 		return vehicles;
