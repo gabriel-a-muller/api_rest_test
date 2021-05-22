@@ -30,9 +30,9 @@ public class Vehicle {
 	
 	private String model;
 	
-	private int price;
+	private String price;
 	
-	private String day_rotation;
+	private int day_rotation;
 	
 	private boolean rotation_active;
 	
@@ -84,19 +84,19 @@ public class Vehicle {
 		this.model = model;
 	}
 
-	public int getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 	
-	public String getDay_rotation() {
+	public int getDay_rotation() {
 		return day_rotation;
 	}
 
-	public void setDay_rotation(String day_rotation) {
+	public void setDay_rotation(int day_rotation) {
 		this.day_rotation = day_rotation;
 	}
 

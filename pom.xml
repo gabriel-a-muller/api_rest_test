@@ -41,8 +41,20 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>4.3.30.RELEASE</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>20160810</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.squareup.okhttp</groupId>
+		    <artifactId>okhttp</artifactId>
+		    <version>2.7.5</version>
+		</dependency>
 	</dependencies>
-
+	
 	<properties>
     <tomcat7-version>7.0.93</tomcat7-version>
 	</properties>

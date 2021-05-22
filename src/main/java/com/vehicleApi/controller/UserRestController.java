@@ -33,7 +33,7 @@ public class UserRestController {
 	public List<User> listAllUsers() {
 		return userRepo.getAll();
 	}
-	
+
 	@RequestMapping(path="/user/{id}", method = RequestMethod.GET)
 	public User getUser(@PathVariable int id, HttpServletResponse response) {
 		return userRepo.getUserById(id);
@@ -51,7 +51,7 @@ public class UserRestController {
 	}
 
 	@PostMapping
-	public ResponseEntity<?> add(@RequestBody User user, HttpServletResponse response) {
+	public ResponseEntity<?> addUser(@RequestBody User user, HttpServletResponse response) {
 		
 		//Format CPF string
 		String new_cpf = formatCpf(user.getCpf());
