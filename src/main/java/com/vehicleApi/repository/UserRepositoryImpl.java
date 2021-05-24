@@ -11,7 +11,6 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import com.vehicleApi.model.User;
-import com.vehicleApi.model.Vehicle;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository{

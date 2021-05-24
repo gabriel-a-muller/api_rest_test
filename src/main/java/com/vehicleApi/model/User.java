@@ -1,6 +1,7 @@
 package com.vehicleApi.model;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ public class User {
 	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "user")
-	private Set<Vehicle> vehicles;
+	private List<Vehicle> vehicles;
 	
 	private String name;
 	
@@ -37,11 +38,11 @@ public class User {
 		
 	}
 	
-	public Set<Vehicle> getVehicles() {
+	public List<Vehicle> getVehicles() {
 		return vehicles;
 	}
 
-	public void setVehicles(Set<Vehicle> vehicles) {
+	public void setVehicles(List<Vehicle> vehicles) {
 		this.vehicles = vehicles;
 	}
 

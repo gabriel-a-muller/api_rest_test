@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,7 +75,6 @@ public class VehicleRestController {
 					JSONObject object = apiArray.getJSONObject(i);
 					if (object.getString("nome").equals(brand)) {
 						code = Integer.parseInt(object.getString("codigo"));
-						System.out.println(code);
 					}
 				}
 			}
@@ -97,7 +94,6 @@ public class VehicleRestController {
 				JSONObject object = Jarray.getJSONObject(i);
 				if (object.getString("nome").equals(model)) {
 					modelCode = object.getInt("codigo");
-					System.out.println(modelCode);
 				}
 			}
 		}
@@ -147,7 +143,7 @@ public class VehicleRestController {
 	}
 	
 	@RequestMapping(path="/vehicle/{id}", method = RequestMethod.POST)
-	public ResponseEntity<?> addVehicle(@RequestBody Vehicle vehicle, HttpServletResponse response, @PathVariable int id) {
+	public ResponseEntity<?> addVehicle(@RequestBody Vehicle vehicle, @PathVariable int id) {
 		
 		User user = userRepo.getUserById(id);
 		if (user == null) {
@@ -183,7 +179,7 @@ public class VehicleRestController {
 		
 		if (vehicleRepo.saveVehicle(vehicle) != null) {
 			ServerResponse serverResponse = new ServerResponse(vehicle, "Vehicle created successfuly!");
-			return new ResponseEntity<>(serverResponse, HttpStatus.OK);
+			return new ResponseEntity<>(serverResponse, HttpStatus.CREATED);
 		} else {
 			ServerResponse serverResponse = new ServerResponse(vehicle, "Server Internal Error!");
 			return new ResponseEntity<>(serverResponse, HttpStatus.INTERNAL_SERVER_ERROR);
