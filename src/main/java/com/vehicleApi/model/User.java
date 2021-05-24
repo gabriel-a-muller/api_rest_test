@@ -1,6 +1,7 @@
 package com.vehicleApi.model;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -19,8 +22,9 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "user")
-	private Set<Vehicle> vehicles;
+	private List<Vehicle> vehicles;
 	
 	private String name;
 	
@@ -30,11 +34,15 @@ public class User {
 	
 	private String email;
 	
-	public Set<Vehicle> getVehicles() {
+	public User(){
+		
+	}
+	
+	public List<Vehicle> getVehicles() {
 		return vehicles;
 	}
 
-	public void setVehicles(Set<Vehicle> vehicles) {
+	public void setVehicles(List<Vehicle> vehicles) {
 		this.vehicles = vehicles;
 	}
 
@@ -77,6 +85,5 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
+
 }
